@@ -10,14 +10,11 @@ class WrongInputError(Error):
 def get_exit_command():
     return 'escape'
 
-
 def check_if_need_to_exit(input):
     return input == get_exit_command()
 
-
 def print_welcome_message():
     print('Welcome to the change of basis app\nPrint ', get_exit_command(), ' to exit')
-
 
 def read_vector(N):
     print('Please input a vector of dimension N using \',\' as a delimeter', N)
@@ -31,7 +28,6 @@ def read_vector(N):
         raise WrongInputError()
 
     return vv
-
 
 def read_matrix(N):
     print('Please input a square matrix of dimension N = ',
@@ -55,7 +51,6 @@ def read_matrix(N):
 
     return m
 
-
 def change_basis():
     print('Please input N = number of dimensions')
     N = int(input())
@@ -65,9 +60,6 @@ def change_basis():
 
     return np.linalg.inv(m).dot(v)
 
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
     try:
@@ -77,5 +69,3 @@ if __name__ == '__main__':
         print('Vector in the new basis: ', result)
     except WrongInputError:
         print("Please provide correct input next time\nGoodbye!")
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
