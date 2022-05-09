@@ -23,8 +23,8 @@ def read_vector(N):
 
     return v
 
-def read_matrix(N):
-    print('Please input a square matrix of dimension N = ',
+def read_basis_matrix(N):
+    print('Please input a square matrix of dimension N =',
           N, '\n line by line using \',\' as a delimeter representing N linearly independent vectors as a basis column wise')
     m = np.eye(N)
 
@@ -50,7 +50,17 @@ def change_basis():
     N = int(input())
 
     v = read_vector(N)
-    m = read_matrix(N)
+
+    b_old = np.eye(N)
+    print('Is your vector in canonical basic? y/n')
+    answer = input()
+
+    if (answer == "n"):
+        print('Please provide matrix representing the OLD basis of your vector')
+        b_old = read_basis_matrix(N)
+
+    print('Please provide matrix representing the NEW basis')
+    b_new = read_basis_matrix(N)
 
     if N == 2:
         print('Do you want to save a plot with your vector and basis? y/n')
@@ -59,20 +69,24 @@ def change_basis():
             print('Please provide a filename')
             filename = input()
 
-            xs = np.append(np.array(m[0, :]), v[0])
-            ys = np.append(np.array(m[1, :]), v[1])
-            plt.quiver([0, 0, 0], [0, 0, 0], xs, ys, color=['b', 'b', 'g'], angles='xy', scale_units='xy', scale=1)
+            xs = np.append(np.array(b_new[0, :]), np.array(b_old[0, :]))
+            ys = np.append(np.array(b_new[1, :]), np.array(b_old[1, :]))
+            xs = np.append(xs, v[0])
+            ys = np.append(ys, v[1])
 
-            lim_x = max([max(abs(m[0, :])), abs(v[0])]) + 1
-            lim_y = max([max(abs(m[1, :])), abs(v[1])]) + 1
-            print(max(abs(m[0, :])))
-            print()
+            plt.quiver([0, 0, 0, 0, 0], [0, 0, 0, 0, 0], xs, ys, color=['r', 'r', 'b', 'b', 'g'], angles='xy', scale_units='xy', scale=1)
+
+            lim_x = max([max(abs(b_old[0, :])), max(abs(b_new[0, :])), abs(v[0])]) + 1
+            lim_y = max([max(abs(b_old[1, :])), max(abs(b_new[1, :])), abs(v[1])]) + 1
+
             plt.xlim(-lim_x, lim_x)
             plt.ylim(-lim_y, lim_y)
 
+            plt.title('Red - new basis, Blue - old basis, Green - your vector')
+
             plt.savefig(filename)
 
-    return np.linalg.inv(m).dot(v)
+    return np.linalg.inv(b_new).dot(b_old).dot(v)
 
 if __name__ == '__main__':
     try:
