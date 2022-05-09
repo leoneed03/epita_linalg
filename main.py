@@ -79,6 +79,10 @@ def change_basis():
             lim_x = max([max(abs(b_old[0, :])), max(abs(b_new[0, :])), abs(v[0])]) + 1
             lim_y = max([max(abs(b_old[1, :])), max(abs(b_new[1, :])), abs(v[1])]) + 1
 
+            lim_x_y = max(lim_x, lim_y)
+            lim_x = lim_x_y
+            lim_y = lim_x_y
+
             plt.xlim(-lim_x, lim_x)
             plt.ylim(-lim_y, lim_y)
 
