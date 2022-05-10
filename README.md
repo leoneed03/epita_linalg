@@ -12,6 +12,11 @@ pip install -r requirements.txt
 
 ## Usage
 
+Just run 
+```
+python3 main.py
+```
+
 Program will ask you to input number of dimensions for the problem `N`, then vector of size `N`
 example vector input for `N=2`:
 ```
